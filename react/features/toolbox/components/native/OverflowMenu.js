@@ -28,7 +28,6 @@ import RaiseHandButton from './RaiseHandButton';
 import ScreenSharingButton from './ScreenSharingButton.js';
 import ToggleCameraButton from './ToggleCameraButton';
 import styles from './styles';
-import PollButton from '../PollButton';
 
 /**
  * The type of the React {@code Component} props of {@link OverflowMenu}.

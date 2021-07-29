@@ -19,7 +19,7 @@ package org.jitsi.meet.sdk;
 import android.app.Activity;
 
 import androidx.annotation.Nullable;
-import com.facebook.react.BuildConfig;
+
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
