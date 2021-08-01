@@ -67,7 +67,7 @@ export function getInviteURL(stateOrGetState: Function | Object): string {
     = state['features/base/config'].brandingRoomAlias || urlWithoutParams.pathname.replace(/\//, '');
 
     let conferenceCode = meetingId.split("/")[meetingId.split("/").length - 1];
-    return `https://spaceapi.ddns.api/api/conference/${conferenceCode}`;
+    return `https://spaceapi.ddns.net/api/conference/${conferenceCode}`;
     return urlWithoutParams.href;
 }
 

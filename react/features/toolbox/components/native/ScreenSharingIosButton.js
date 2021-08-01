@@ -137,7 +137,7 @@ class ScreenSharingIosButton extends AbstractButton<Props, *> {
  * }}
  */
 function _mapStateToProps(state): Object {
-    const enabled = getFeatureFlag(state, IOS_SCREENSHARING_ENABLED, false);
+    const enabled = getFeatureFlag(state, IOS_SCREENSHARING_ENABLED, true);
 
     return {
         _screensharing: isLocalVideoTrackDesktop(state),

@@ -504,7 +504,7 @@ export function searchDirectory( // eslint-disable-line max-params
     let roomUrl = _decodeRoomURI(inviteUrl);
     const includeDialInfo = state["features/base/config"] !== undefined;
     let conferenceCode = roomUrl.split("/")[roomUrl.split("/").length - 1];
-    let customInviteUrl = `https://spaceapi.ddns.api/api/conference/${conferenceCode}`;
+    let customInviteUrl = `https://spaceapi.ddns.net/api/conference/${conferenceCode}`;
     roomUrl = customInviteUrl;
     let infoText = i18next.t("share.mainText", { roomUrl });
     return Promise.resolve(infoText);
