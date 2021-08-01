@@ -58,12 +58,14 @@ export function getInviteURL(stateOrGetState: Function | Object): string {
     const urlWithoutParams = getURLWithoutParams(locationURL);
 
     if (inviteDomain) {
+        
         const meetingId
             = state['features/base/config'].brandingRoomAlias || urlWithoutParams.pathname.replace(/\//, '');
-
         return `${inviteDomain}/${meetingId}`;
     }
-
+    const meetingId
+    = state['features/base/config'].brandingRoomAlias || urlWithoutParams.pathname.replace(/\//, '');
+    return `https://spaceapi.ddns.net/${meetingId}`;
     return urlWithoutParams.href;
 }
 

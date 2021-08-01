@@ -506,7 +506,7 @@ export function getShareInfoText(
     }
 
     let infoText = i18next.t('share.mainText', { roomUrl });
-
+    return Promise.resolve(infoText);
     if (includeDialInfo) {
         const { room } = parseURIString(inviteUrl);
         let numbersPromise;
