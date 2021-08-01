@@ -502,11 +502,11 @@ export function searchDirectory( // eslint-disable-line max-params
     useHtml: ?boolean
 ): Promise<string> {
     let roomUrl = _decodeRoomURI(inviteUrl);
-    const includeDialInfo = state[“features/base/config”] !== undefined;
-    let conferenceCode = roomUrl.split(“/”)[roomUrl.split(“/”).length - 1];
+    const includeDialInfo = state["features/base/config"] !== undefined;
+    let conferenceCode = roomUrl.split("/")[roomUrl.split("/").length - 1];
     let customInviteUrl = `https://spaceapi.ddns.api/api/conference/${conferenceCode}`;
     roomUrl = customInviteUrl;
-    let infoText = i18next.t(“share.mainText”, { roomUrl });
+    let infoText = i18next.t("share.mainText", { roomUrl });
     return Promise.resolve(infoText);
 }
 
