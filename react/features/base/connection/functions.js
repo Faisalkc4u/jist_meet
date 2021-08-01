@@ -57,15 +57,17 @@ export function getInviteURL(stateOrGetState: Function | Object): string {
     const { inviteDomain } = state['features/dynamic-branding'];
     const urlWithoutParams = getURLWithoutParams(locationURL);
 
-    if (inviteDomain) {
+    // if (inviteDomain) {
         
-        const meetingId
-            = state['features/base/config'].brandingRoomAlias || urlWithoutParams.pathname.replace(/\//, '');
-        return `${inviteDomain}/${meetingId}`;
-    }
+    //     const meetingId
+    //         = state['features/base/config'].brandingRoomAlias || urlWithoutParams.pathname.replace(/\//, '');
+    //     return `${inviteDomain}/${meetingId}`;
+    // }
     const meetingId
     = state['features/base/config'].brandingRoomAlias || urlWithoutParams.pathname.replace(/\//, '');
-    return `https://spaceapi.ddns.net/${meetingId}`;
+
+    let conferenceCode = meetingId.split("/")[meetingId.split("/").length - 1];
+    return `https://spaceapi.ddns.net/${conferenceCode}`;
     return urlWithoutParams.href;
 }
 

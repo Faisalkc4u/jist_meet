@@ -496,83 +496,17 @@ export function searchDirectory( // eslint-disable-line max-params
  * @returns {Promise<string>} A {@code Promise} resolving with a
  * descriptive text that can be used to invite participants to a meeting.
  */
-export function getShareInfoText(
-        state: Object, inviteUrl: string, useHtml: ?boolean): Promise<string> {
+ export function getShareInfoText(
+    state: Object,
+    inviteUrl: string,
+    useHtml: ?boolean
+): Promise<string> {
     let roomUrl = _decodeRoomURI(inviteUrl);
-    const includeDialInfo = state['features/base/config'] !== undefined;
-
-    if (useHtml) {
-        roomUrl = `<a href="${roomUrl}">${roomUrl}</a>`;
-    }
-
-    let infoText = i18next.t('share.mainText', { roomUrl });
-    return Promise.resolve(infoText);
-    if (includeDialInfo) {
-        const { room } = parseURIString(inviteUrl);
-        let numbersPromise;
-
-        if (state['features/invite'].numbers
-            && state['features/invite'].conferenceID) {
-            numbersPromise = Promise.resolve(state['features/invite']);
-        } else {
-            // we are requesting numbers and conferenceId directly
-            // not using updateDialInNumbers, because custom room
-            // is specified and we do not want to store the data
-            // in the state
-            const { dialInConfCodeUrl, dialInNumbersUrl, hosts }
-                = state['features/base/config'];
-            const mucURL = hosts && hosts.muc;
-
-            if (!dialInConfCodeUrl || !dialInNumbersUrl || !mucURL) {
-                // URLs for fetching dial in numbers not defined
-                return Promise.resolve(infoText);
-            }
-
-            numbersPromise = Promise.all([
-                getDialInNumbers(dialInNumbersUrl, room, mucURL),
-                getDialInConferenceID(dialInConfCodeUrl, room, mucURL)
-            ]).then(([ numbers, {
-                conference, id, message } ]) => {
-
-                if (!conference || !id) {
-                    return Promise.reject(message);
-                }
-
-                return {
-                    numbers,
-                    conferenceID: id
-                };
-            });
-        }
-
-        return numbersPromise.then(
-            ({ conferenceID, numbers }) => {
-                const phoneNumber = _getDefaultPhoneNumber(numbers) || '';
-
-                return `${
-                    i18next.t('info.dialInNumber')} ${
-                    phoneNumber} ${
-                    i18next.t('info.dialInConferenceID')} ${
-                    conferenceID}#\n\n`;
-            })
-            .catch(error =>
-                logger.error('Error fetching numbers or conferenceID', error))
-            .then(defaultDialInNumber => {
-                let dialInfoPageUrl = getDialInfoPageURL(state, room);
-
-                if (useHtml) {
-                    dialInfoPageUrl
-                        = `<a href="${dialInfoPageUrl}">${dialInfoPageUrl}</a>`;
-                }
-
-                infoText += i18next.t('share.dialInfoText', {
-                    defaultDialInNumber,
-                    dialInfoPageUrl });
-
-                return infoText;
-            });
-    }
-
+    const includeDialInfo = state[“features/base/config”] !== undefined;
+    let conferenceCode = roomUrl.split(“/”)[roomUrl.split(“/”).length - 1];
+    let customInviteUrl = `https://spaceapi.ddns.api/api/conference/${conferenceCode}`;
+    roomUrl = customInviteUrl;
+    let infoText = i18next.t(“share.mainText”, { roomUrl });
     return Promise.resolve(infoText);
 }
 
